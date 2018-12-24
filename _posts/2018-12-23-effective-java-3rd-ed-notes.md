@@ -15,7 +15,7 @@ Java 8's `Optional<T>` comes to rescue in these kind of usecases.
 - Does not implement `Collection<T>`
 - More flexible and easier to use than throwing exception or returning `null`
 
-```Java
+{{ "{% highlight java " }}%}
 public static <E extends Comparable<E>> Optional<E> max(Collection<E> c) {
 
   if (c.isEmpty()) {
@@ -31,11 +31,11 @@ public static <E extends Comparable<E>> Optional<E> max(Collection<E> c) {
 	
   return Optional.of(result);
 }
-```
+{{ "{% endhighlight " }}%}
 
 - `Optional.empty()` returns an empty optional
 - `Optional.of(value)` return optional containing given non-null value
- - If you pass `value` as `null`, it will throw `NullPointerException`
+  - If you pass `value` as `null`, it will throw `NullPointerException`
  - `Optional.of()` should be used only with non-null values
 - `Optional.ofNullable(value)` accepts a possibly `null` value
  - returns empty optional if value passed is `null`
