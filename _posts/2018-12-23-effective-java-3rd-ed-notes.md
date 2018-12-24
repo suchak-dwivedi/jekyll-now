@@ -39,7 +39,7 @@ public static <E extends Comparable<E>> Optional<E> max(Collection<E> c) {
 - `Optional.ofNullable(value)` accepts a possibly `null` value
  - returns empty optional if value passed is `null`
 
-**_Never return a `null` from an `Optional`-returning method_**
+- **_Never return a `null` from an `Optional`-returning method_**
 
 - Optionals are similar in spirit to checked exception in the sense that they force client to confront the fact that the method can return no value
 
@@ -72,9 +72,16 @@ Toy myToy = max(toys).orElseThrow(TemperTantrumException::new);
 - `Optional.flatMap()` is similar to `Optional.map()` just that it returns the result itself instead of wrapping it in `Optional`. If result is `null` it returns empty Optional
 - `Optional.ifPresent()` can be used to do something if value is present. It takes `Consumer` as argument.
 
-**_Container types, including collections, maps, streams, arrays, and optionals should not be wrapped in optionals._**
+- **_Container types, including collections, maps, streams, arrays, and optionals should not be wrapped in optionals._**
 
-**_As a rule, you should declare a method to return `Optional<T>` if it might not be able to return a result and clients will have to perform special processing if no result is returned._**
+- **_As a rule, you should declare a method to return `Optional<T>` if it might not be able to return a result and clients will have to perform special processing if no result is returned._**
+
+- `Optional` comes with a cost, it is an object and requires memory, this makes optionals inapproriate for performance-critical applications
+- Never use optional over primitives like `int`, `long`, `double`. It makes two level of abstraction, first being boxing of primitives and then optional. Use `OptionalInt`, `OptionalLong`, and `OptionalDouble` insead. **_You should never return an optional of a boxed primitive type_**
+- **_It is almost never appropriate to use an optional as a key, value, or element in a collection or array_**
+ - consider a map with value being optional since you decided that you want to distinguish between cases non-existent keys and keys with value being empty
+ - creates complexity with great potential for confusion and errors
+
 
 
 
