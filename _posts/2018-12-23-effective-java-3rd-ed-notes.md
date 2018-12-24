@@ -62,5 +62,21 @@ Toy myToy = max(toys).orElseThrow(TemperTantrumException::new);
  ```Java
   Element lastNobleGas = max(Elements.NOBLE_GASES).get();
   ```
+- When constructing default value is expensive consider `Optional.orElseGet()` which takes `Supplier<T>`, it is invoked only when necessary
+- `Optional.filter(predicate)` returns optional if predicate returns `true` else returns empty optional
+- `Optional.map()` can be used to apply `Function` on optional if value is present and return optional non-null result
+ - `Optional.isPresent()` + `Optional.get()` can be replaced with `Optional.map()`
+ ```Java
+ System.out.println("Parent PID: " + ph.parent().map(h -> String.valueOf(h.pid())).orElse("N/A"));
+ ```
+- `Optional.flatMap()` is similar to `Optional.map()` just that it returns the result itself instead of wrapping it in `Optional`. If result is `null` it returns empty Optional
+- `Optional.ifPresent()` can be used to do something if value is present. It takes `Consumer` as argument.
+
+**_Container types, including collections, maps, streams, arrays, and optionals should not be wrapped in optionals._**
+
+**_As a rule, you should declare a method to return `Optional<T>` if it might not be able to return a result and clients will have to perform special processing if no result is returned._**
+
+
+
 
 
