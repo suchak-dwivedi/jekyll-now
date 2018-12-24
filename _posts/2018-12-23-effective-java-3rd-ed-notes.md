@@ -15,7 +15,7 @@ Java 8's `Optional<T>` comes to rescue in these kind of usecases.
 - Does not implement `Collection<T>`
 - More flexible and easier to use than throwing exception or returning `null`
 
-{{ "{% highlight java " }}%}
+```java
 public static <E extends Comparable<E>> Optional<E> max(Collection<E> c) {
 
   if (c.isEmpty()) {
@@ -31,43 +31,43 @@ public static <E extends Comparable<E>> Optional<E> max(Collection<E> c) {
 	
   return Optional.of(result);
 }
-{{ "{% endhighlight " }}%}
+```
 
 - `Optional.empty()` returns an empty optional
 - `Optional.of(value)` return optional containing given non-null value
   - If you pass `value` as `null`, it will throw `NullPointerException`
- - `Optional.of()` should be used only with non-null values
+  - `Optional.of()` should be used only with non-null values
 - `Optional.ofNullable(value)` accepts a possibly `null` value
- - returns empty optional if value passed is `null`
+  - returns empty optional if value passed is `null`
 
 - **_Never return a `null` from an `Optional`-returning method_**
 
 - Optionals are similar in spirit to checked exception in the sense that they force client to confront the fact that the method can return no value
 
-```Java
+```java
 public static <E extends Comparable<E>> Optional<E> max(Collection<E> c) {
   return c.stream().max(Comparator.naturalOrder());
 }
 ```
 
 - Use `Optional.orElse()` to provide default value
-```Java
+```java
 String lastWordInLexicon = max(words).orElse("No words...");
 ```
 - Or throw a chosen exception with `Optional.orElseThrow()`
-```Java
+```java
 Toy myToy = max(toys).orElseThrow(TemperTantrumException::new);
 ```
 - Get value from Optional using `Optional.get()`
- - can throw `NoSuchElementException` if it is empty
- ```Java
+  - can throw `NoSuchElementException` if it is empty
+ ```java
   Element lastNobleGas = max(Elements.NOBLE_GASES).get();
   ```
 - When constructing default value is expensive consider `Optional.orElseGet()` which takes `Supplier<T>`, it is invoked only when necessary
 - `Optional.filter(predicate)` returns optional if predicate returns `true` else returns empty optional
 - `Optional.map()` can be used to apply `Function` on optional if value is present and return optional non-null result
- - `Optional.isPresent()` + `Optional.get()` can be replaced with `Optional.map()`
- ```Java
+  - `Optional.isPresent()` + `Optional.get()` can be replaced with `Optional.map()`
+ ```java
  System.out.println("Parent PID: " + ph.parent().map(h -> String.valueOf(h.pid())).orElse("N/A"));
  ```
 - `Optional.flatMap()` is similar to `Optional.map()` just that it returns the result itself instead of wrapping it in `Optional`. If result is `null` it returns empty Optional
@@ -80,11 +80,5 @@ Toy myToy = max(toys).orElseThrow(TemperTantrumException::new);
 - `Optional` comes with a cost, it is an object and requires memory, this makes optionals inapproriate for performance-critical applications
 - Never use optional over primitives like `int`, `long`, `double`. It makes two level of abstraction, first being boxing of primitives and then optional. Use `OptionalInt`, `OptionalLong`, and `OptionalDouble` insead. **_You should never return an optional of a boxed primitive type_**
 - **_It is almost never appropriate to use an optional as a key, value, or element in a collection or array_**
- - consider a map with value being optional since you decided that you want to distinguish between cases non-existent keys and keys with value being empty
- - creates complexity with great potential for confusion and errors
-
-
-
-
-
-
+  - consider a map with value being optional since you decided that you want to distinguish between cases non-existent keys and keys with value being empty
+  - creates complexity with great potential for confusion and errors
