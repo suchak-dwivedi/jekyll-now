@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Effective Java 3rd Edition Notes
 ---
 ## Effective Java 3rd Edition - Notes
